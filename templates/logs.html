@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h3>System Logs</h3>
+<div class="list-group">
+  {% for l in logs %}
+  <div class="list-group-item">
+    <div class="d-flex w-100 justify-content-between">
+      <h6 class="mb-1">[{{ l['timestamp'] }}] {{ l['user_email'] or 'unknown' }}</h6>
+      <small>{{ l['module'] }} — {{ l['score'] }}%</small>
+    </div>
+    <p class="mb-1">Result: {{ l['result'] }} — File: {{ l['filename'] }}</p>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

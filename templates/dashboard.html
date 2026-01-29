@@ -1,0 +1,73 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="row">
+  <div class="col-md-8">
+    <h3>📊 Analysis Modules</h3>
+    <p class="text-muted">Upload your files and run instant AI analysis. Results will be sent to your email.</p>
+    
+    <div class="card p-3 mb-3 shadow-sm module">
+      <h5>📄 Document Grouping & Duplicate Check</h5>
+      <p class="text-muted small">Upload 2+ documents to find duplicates. Supports .txt, .pdf, .docx</p>
+      <form class="upload-form" data-module="duplicate">
+        <div class="input-group mb-2">
+          <input type="file" class="form-control" name="files" accept=".txt,.pdf,.docx" multiple required>
+          <button class="btn btn-primary" type="submit">Analyze Files</button>
+        </div>
+        <small class="text-muted">💡 Tip: Select multiple documents for comparison</small>
+      </form>
+      <div class="result mt-2"></div>
+    </div>
+
+    <div class="card p-3 mb-3 shadow-sm module">
+      <h5>✍️ AI vs Human Text Detection</h5>
+      <p class="text-muted small">Identifies if text is AI-generated or human-written. Single file only.</p>
+      <form class="upload-form" data-module="text">
+        <div class="input-group mb-2">
+          <input type="file" class="form-control" name="file" accept=".txt,.pdf,.docx" required>
+          <button class="btn btn-primary" type="submit">Analyze</button>
+        </div>
+      </form>
+      <div class="result mt-2"></div>
+    </div>
+
+    <div class="card p-3 mb-3 shadow-sm module">
+      <h5>🖼️ AI / Deepfake Image Detection</h5>
+      <p class="text-muted small">Detects AI-generated or manipulated images. Upload 1+ images.</p>
+      <form class="upload-form" data-module="image">
+        <div class="input-group mb-2">
+          <input type="file" class="form-control" name="files" accept="image/jpeg,image/png,image/jpg" multiple required>
+          <button class="btn btn-primary" type="submit">Analyze Images</button>
+        </div>
+        <small class="text-muted">💡 Tip: Select multiple images for batch analysis</small>
+      </form>
+      <div class="result mt-2"></div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <h5>👤 Your Profile</h5>
+    <div class="card p-3 shadow-sm">
+      <p><strong>Name:</strong> {{ user['name'] }}</p>
+      <p><strong>Email:</strong> {{ user['email'] }}</p>
+      <p><strong>Member Since:</strong> {{ user['last_active'][:10] if user['last_active'] else 'Today' }}</p>
+      <hr>
+      <h6>📋 Recent Analysis</h6>
+      {% if logs %}
+      <ul class="list-group list-group-sm">
+        {% for l in logs[-5:]|reverse %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div>
+            <strong>{{ l['module']|upper }}</strong>
+            <br><small>{{ l['result'] }}</small>
+          </div>
+          <span class="badge bg-secondary">{{ l['score'] }}%</span>
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p class="text-muted small">No analysis yet. Start by uploading files above!</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

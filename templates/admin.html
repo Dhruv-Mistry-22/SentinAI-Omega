@@ -1,0 +1,77 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<h3>Admin Dashboard</h3>
+<div class="row mb-3">
+  <div class="col-md-3"><div class="card p-3 shadow-sm">Total users<br><strong>{{ total }}</strong></div></div>
+  <div class="col-md-3"><div class="card p-3 shadow-sm">Blocked users<br><strong>{{ blocked }}</strong></div></div>
+  <div class="col-md-3"><div class="card p-3 shadow-sm">Analyses run<br><strong>{{ analyses }}</strong></div></div>
+</div>
+
+<h5>User Management</h5>
+<table class="table table-striped" id="users-table">
+  <thead><tr><th>User</th><th>Email</th><th>Last Active</th><th>Status</th><th>Action</th></tr></thead>
+  <tbody>
+  {% for u in users %}
+    <tr data-user-id="{{ u['id'] }}">
+      <td>{{ u['name'] }}</td>
+      <td>{{ u['email'] }}</td>
+      <td>{{ u['last_active'][:19] if u['last_active'] else '—' }}</td>
+      <td class="status-cell">{% if u['blocked'] %}<span class="badge bg-danger">Blocked</span>{% else %}<span class="badge bg-success">Active</span>{% endif %}</td>
+      <td>
+        {% if u['role'] != 'admin' %}
+        <button class="btn btn-sm btn-outline-danger block-btn">{% if u['blocked'] %}Unblock{% else %}Block{% endif %}</button>
+        {% else %}
+        <span class="text-muted">Admin</span>
+        {% endif %}
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+<a class="btn btn-secondary" href="/admin/logs">View System Logs</a>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('.block-btn').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      var tr = e.target.closest('tr');
+      var userId = tr.getAttribute('data-user-id');
+      var action = (e.target.textContent.trim().toLowerCase() === 'block') ? 'block' : 'unblock';
+      e.target.disabled = true;
+      e.target.textContent = '...';
+
+      var fd = new FormData();
+      fd.append('user_id', userId);
+      fd.append('action', action);
+
+      fetch('/admin/block', { method: 'POST', body: fd }).then(r=>r.json()).then(function(resp){
+        if(resp && resp.ok){
+          // toggle UI
+          var statusCell = tr.querySelector('.status-cell');
+          var btn = tr.querySelector('.block-btn');
+          if(action === 'block'){
+            statusCell.innerHTML = '<span class="badge bg-danger">Blocked</span>';
+            btn.textContent = 'Unblock';
+            btn.classList.remove('btn-outline-danger');
+            btn.classList.add('btn-outline-success');
+          } else {
+            statusCell.innerHTML = '<span class="badge bg-success">Active</span>';
+            btn.textContent = 'Block';
+            btn.classList.remove('btn-outline-success');
+            btn.classList.add('btn-outline-danger');
+          }
+        } else {
+          alert('Action failed');
+        }
+      }).catch(function(){ alert('Request failed'); })
+      .finally(function(){
+        var btn = tr.querySelector('.block-btn'); if(btn) btn.disabled = false;
+      });
+    });
+  });
+});
+</script>
+
+{% endblock %}

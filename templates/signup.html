@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="d-flex align-items-center justify-content-center" style="min-height:70vh;">
+  <div class="card shadow-sm" style="width:100%;max-width:480px;">
+    <div class="card-body">
+      <h3 class="card-title mb-2">Create Account</h3>
+      <p class="text-muted mb-3">Join SentinAI Omega</p>
+
+      {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+      {% endif %}
+
+      <form method="post">
+        <div class="mb-3">
+          <label class="form-label">Full name</label>
+          <input name="name" class="form-control" placeholder="Your name" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Email address</label>
+          <input type="email" name="email" class="form-control" placeholder="you@example.com" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Password</label>
+          <input type="password" name="password" class="form-control" placeholder="Min. 6 characters" required>
+        </div>
+
+        <input type="hidden" name="role" value="user">
+
+        <button type="submit" class="btn btn-primary w-100">Create Account</button>
+      </form>
+
+      <div class="text-center mt-3">
+        <small class="text-muted">Already have an account? <a href="/login">Sign in</a></small>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

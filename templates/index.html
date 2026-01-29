@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="jumbotron p-5 rounded-4 bg-white shadow-sm hero">
+  <h1 class="display-5">SentinAI Omega</h1>
+  <p class="lead">Enterprise-grade AI content and deepfake detection — upload, analyze, and audit with confidence.</p>
+  <hr>
+  <div class="d-flex gap-2">
+    <a class="btn btn-primary btn-lg" href="/signup">Get Started</a>
+    <a class="btn btn-outline-secondary btn-lg" href="/login">Admin Login</a>
+  </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-md-4">
+    <div class="card shadow-sm p-3">
+      <h5>Document Grouping</h5>
+      <p>Organize and detect duplicate documents fast.</p>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card shadow-sm p-3">
+      <h5>AI vs Human Text</h5>
+      <p>Classify generated text and keep your corpus trusted.</p>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card shadow-sm p-3">
+      <h5>Image Deepfake Check</h5>
+      <p>Detect manipulated or AI-generated images.</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+# Virtual Environment
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# IDE folders
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+# Database
+*.db
+
+# Large external tools / binaries
+poppler-*/
+
+# Data folders (if generated)
+dataM1/
+dataM2/
+dataM3/
+
+# Python cache (extra safety)
+__pycache__/
