@@ -35,7 +35,6 @@ PyRect==0.2.0
 pyspellchecker==0.8.4
 pytesseract==0.3.13
 python-docx==1.2.0
-pywin32==311
 pywinauto==0.6.9
 PyYAML==6.0.3
 regex==2025.11.3
