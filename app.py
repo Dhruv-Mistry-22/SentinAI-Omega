@@ -524,5 +524,6 @@ def static_proxy(pth):
     return send_from_directory('static', pth)
 
 
-if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+if __name__ == "__main__":
+    app.run()
+
