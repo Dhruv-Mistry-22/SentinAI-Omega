@@ -1,0 +1,22 @@
+Name: Priya Patel
+Roll No: 2024CS115
+Subject: Artificial Intelligence
+Date: 16/03/2025
+
+Assignment: Introduction to Machine Learning
+
+Machine learning is a branch of artificial intelligence that focuses on building systems that can learn from and make decisions based on data. Rather than being explicitly programmed to perform a task, these systems use algorithms to parse data, learn from it, and then make predictions or decisions.
+
+There are three main types of machine learning. Supervised learning involves training a model on labeled data, where the correct output is known. The model learns the mapping between inputs and outputs and can then predict outputs for new inputs. Common algorithms include linear regression, decision trees, and support vector machines.
+
+Unsupervised learning deals with unlabeled data. The goal is to find hidden patterns or structures in the data. Clustering algorithms like K-means and hierarchical clustering group similar data points together. Dimensionality reduction techniques like PCA help in reducing the number of features while retaining important information.
+
+Reinforcement learning is inspired by behavioral psychology. An agent learns to make decisions by performing actions in an environment and receiving rewards or penalties. The agent aims to maximize cumulative reward over time. This approach has been successfully applied in game playing, robotics, and autonomous driving.
+
+Neural networks are a fundamental component of deep learning, which is a subset of machine learning. A neural network consists of layers of interconnected nodes or neurons. The input layer receives data, hidden layers process it through weighted connections, and the output layer produces the final result. The backpropagation algorithm is used to adjust weights during training.
+
+Deep learning has revolutionized many fields including computer vision, natural language processing, and speech recognition. Convolutional neural networks are particularly effective for image classification tasks, while recurrent neural networks and transformers excel at sequential data processing.
+
+The evaluation of machine learning models requires careful consideration of metrics such as accuracy, precision, recall, and F1 score. Cross-validation is commonly used to assess model performance and prevent overfitting. Techniques like regularization and dropout help in building more generalizable models.
+
+In conclusion, machine learning continues to evolve rapidly with new architectures and techniques being developed regularly. Its applications span healthcare, finance, transportation, and many other domains, making it one of the most impactful technologies of the modern era.
