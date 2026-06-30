@@ -1,0 +1,77 @@
+# ═══════════════════════════════════════════════
+#  SentienOmega — Root .gitignore
+# ═══════════════════════════════════════════════
+
+# ── Python compiled files ────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ── Virtual environments ─────────────────────────
+venv/
+env/
+.venv/
+.virtualenv/
+
+# ── Environment / Secrets ────────────────────────
+.env
+.env.*
+*.secret
+secrets.py
+
+# ── IDE / Editor ─────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ── OS junk ──────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Logs ─────────────────────────────────────────
+*.log
+
+# ── Archives (never push raw data zips) ──────────
+*.zip
+*.tar.gz
+*.tar
+*.rar
+
+# ── Module 1: Generated output reports ───────────
+Module-1/output/*.pdf
+Module-1/output/*.xlsx
+
+# ── NLTK runtime data ─────────────────────────────
+nltk_data/
+
+# ── Module 2: Large raw training datasets ─────────
+# (model .pth weights ARE included — they are required to run)
+Module-2/Module-3-1/datasets/
+Module-2/Module-3-2/dataset/handbagdataset4k/
+Module-2/Module-3-3/data/watch/
+Module-2/Module-3-3/data/test_dataset/
+
+# ── Module 2: Evaluation camera photos (private personal photos) ──
+Module-2/Module-3-1/Evaluation/Camera/
+Module-2/Module-3-1/Evaluation/Normal Computer images/
+Module-2/Module-3-1/Evaluation/aigenimages/
+
+# ── Module 2: Auto-generated JSON reports ─────────
+# (JSON run reports auto-created by Module-3-1)
+Module-2/Module-3-1/reports/
+
+# ── HuggingFace / torch download cache ───────────
+.cache/
+.ipynb_checkpoints/
+
+# ── Temporary files ───────────────────────────────
+*.tmp
+*.temp

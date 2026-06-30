@@ -1,0 +1,49 @@
+# Python compiled files (useless)
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# ──────────────────────────────────────────────
+# ✅ Model weights (.pth) ARE included — they are the brain of the system
+# ──────────────────────────────────────────────
+
+# Large dataset ZIPS (1.7 GB+, never push raw data archives)
+*.zip
+*.tar.gz
+*.tar
+
+# Raw dataset image folders (thousands of images, too large for GitHub)
+Module-3-1/datasets/
+Module-3-2/dataset/handbagdataset4k/
+Module-3-3/data/watch/
+Module-3-3/data/test_dataset/
+
+# Reports / auto-generated outputs
+Module-3-1/reports/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Jupyter notebooks checkpoints
+.ipynb_checkpoints/
+
+# Local HuggingFace / torch download cache
+.cache/
+
+# Evaluation runner outputs (auto-generated, not source code)
+Module-3-1/Evaluation/

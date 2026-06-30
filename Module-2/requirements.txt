@@ -1,0 +1,29 @@
+# ╔══════════════════════════════════════════════════════════════╗
+# ║        SentinAI Omega — Module 3: Object Detection          ║
+# ║        Unified Requirements (all 3 modules + router)        ║
+# ╚══════════════════════════════════════════════════════════════╝
+
+# ── Core ML Framework ──────────────────────────────────────────
+torch>=2.0.0
+torchvision>=0.15.0
+
+# ── Model Architectures ────────────────────────────────────────
+timm>=0.9.0                   # EfficientNet-B0 / B3 (used by all 3 modules)
+transformers>=4.35.0          # HuggingFace pipeline fallback
+
+# ── CLIP (category auto-router) ────────────────────────────────
+open-clip-torch>=3.2.0        # CLIP ViT-B-32 zero-shot image classifier
+
+# ── Image Processing ───────────────────────────────────────────
+Pillow>=10.0.0
+opencv-python>=4.8.0
+numpy>=1.24.0
+
+# ── Signal / Frequency Analysis ────────────────────────────────
+scipy>=1.11.0                 # FFT spectral analysis (Module-3-2)
+
+# ── EXIF Metadata Reading ──────────────────────────────────────
+piexif>=1.1.3                 # EXIF forensics (Module-3-2)
+
+# ── CLI / Terminal UI ──────────────────────────────────────────
+rich>=13.0.0                  # Module-3-2 uses rich for its own CLI

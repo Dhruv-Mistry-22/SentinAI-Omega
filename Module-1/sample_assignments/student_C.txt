@@ -1,0 +1,22 @@
+Name: Rahul Verma
+Roll No: 2024CS122
+Subject: Artificial Intelligence
+Date: 17/03/2025
+
+Assignment: Machine Learning Overview
+
+Machine learning represents a significant area within artificial intelligence, centered around creating systems capable of learning from data and making informed decisions. Instead of following rigid programming instructions, these systems utilize sophisticated algorithms to analyze data, extract patterns, and generate predictions.
+
+The field is broadly divided into three categories. In supervised learning, models are trained using labeled datasets where expected outcomes are already known. Through this process, the model discovers relationships between input variables and target outputs, enabling it to make predictions on unseen data. Popular methods include logistic regression, random forests, and neural networks.
+
+When working with data that lacks labels, unsupervised learning comes into play. Its primary objective is to uncover inherent structures within datasets. Methods such as K-means clustering and DBSCAN are used to identify natural groupings, while techniques like principal component analysis assist in simplifying complex datasets.
+
+The third paradigm, reinforcement learning, draws inspiration from how living organisms learn through trial and error. An intelligent agent interacts with its surroundings, receiving feedback in the form of rewards for beneficial actions. Over time, the agent develops strategies to maximize its total reward. Applications range from video game AI to robotic control systems.
+
+At the heart of modern machine learning lies deep learning, powered by artificial neural networks. These networks comprise multiple layers of computational units. Information flows through the network, being transformed at each layer until a final prediction emerges. Training involves iteratively adjusting connection weights using gradient descent and backpropagation.
+
+This technology has transformed numerous industries. Image recognition, language translation, and voice assistants all rely heavily on deep learning architectures. Models like convolutional networks handle visual data effectively, while transformer-based architectures have become the standard for language tasks.
+
+Evaluating model quality involves multiple performance indicators including accuracy, precision, recall, and the F1 metric. Validation strategies like k-fold cross-validation ensure that models generalize well beyond their training data. Regularization methods prevent models from memorizing training examples.
+
+To summarize, machine learning is advancing at a remarkable pace, with innovative approaches emerging continuously. From medical diagnostics to financial analysis, its influence continues to grow across virtually every sector of the economy.

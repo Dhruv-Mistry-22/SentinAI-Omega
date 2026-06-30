@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SentinAI Omega</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="/static/script.js" defer></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo-container">
+                <div class="logo-icon"></div>
+                <h1>SentinAI <span class="highlight">Omega</span></h1>
+            </div>
+            
+            <nav class="nav-menu">
+                <button class="nav-item active" data-target="module1">
+                    <svg xmlns="http://www.w3.org/O/svg/2000" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    Document Analysis
+                </button>
+                <button class="nav-item" data-target="module2">
+                    <svg xmlns="http://www.w3.org/O/svg/2000" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                    Image Classifier
+                </button>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            
+            <!-- Module 1: Document Analysis -->
+            <section id="module1" class="module-view active-view">
+                <header class="view-header">
+                    <h2>Document Plagiarism & AI Detection</h2>
+                    <p>Upload at least two documents (.txt, .pdf, .docx) to analyze similarity and AI writing characteristics.</p>
+                </header>
+
+                <div class="upload-zone" id="doc-upload-zone">
+                    <input type="file" id="doc-input" multiple accept=".txt,.pdf,.docx" hidden>
+                    <div class="upload-icon">📄</div>
+                    <p>Drag & Drop documents here</p>
+                    <span>or <button class="btn-text" onclick="document.getElementById('doc-input').click()">browse files</button></span>
+                    <ul class="file-list" id="doc-file-list"></ul>
+                    <button class="btn-primary mt-4" id="btn-analyze-docs" disabled>Analyze Documents</button>
+                </div>
+
+                <!-- Loader -->
+                <div class="loader-container" id="doc-loader" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Analyzing documents with 4-layer similarity engine...</p>
+                </div>
+
+                <!-- Results -->
+                <div class="results-container" id="doc-results" style="display: none;">
+                    <!-- Filled by JS -->
+                </div>
+            </section>
+
+            <!-- Module 2: Image Classifier -->
+            <section id="module2" class="module-view">
+                <header class="view-header">
+                    <h2>Smart Image Classifier</h2>
+                    <p>AI vs Real Detection Router (Shoe / Handbag / Watch). Upload an image to analyze.</p>
+                </header>
+
+                <div class="upload-zone" id="img-upload-zone">
+                    <input type="file" id="img-input" accept="image/*" hidden>
+                    <div class="upload-icon">🖼️</div>
+                    <p>Drag & Drop an image here</p>
+                    <span>or <button class="btn-text" onclick="document.getElementById('img-input').click()">browse files</button></span>
+                    
+                    <div class="image-preview" id="img-preview-container" style="display:none;">
+                        <img id="img-preview" src="" alt="Preview">
+                        <button class="btn-close" id="btn-remove-img">×</button>
+                    </div>
+
+                    <div class="category-select mt-4">
+                        <label for="img-category">Force Category (Optional):</label>
+                        <select id="img-category" class="glass-select">
+                            <option value="">Auto-detect (CLIP)</option>
+                            <option value="shoe">Shoe</option>
+                            <option value="handbag">Handbag</option>
+                            <option value="watch">Watch</option>
+                        </select>
+                    </div>
+
+                    <button class="btn-primary mt-4" id="btn-classify-img" disabled>Classify Image</button>
+                </div>
+
+                <!-- Loader -->
+                <div class="loader-container" id="img-loader" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Routing and analyzing image forensics...</p>
+                </div>
+
+                <!-- Results -->
+                <div class="results-container" id="img-results" style="display: none;">
+                    <!-- Filled by JS -->
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+</html>

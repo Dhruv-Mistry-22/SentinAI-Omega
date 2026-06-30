@@ -1,0 +1,47 @@
+# ── Python ────────────────────────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ── Virtual environments ───────────────────────────────────────────────
+venv/
+env/
+.venv/
+
+# ── Environment / secrets ─────────────────────────────────────────────
+.env
+
+# ── IDE ───────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+
+# ── OS ────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Logs ──────────────────────────────────────────────────────────────
+*.log
+
+# ── Database ──────────────────────────────────────────────────────────
+*.db
+
+# ── External binaries ─────────────────────────────────────────────────
+poppler-*/
+
+# ── Data folders (other modules) ──────────────────────────────────────
+dataM1/
+dataM2/
+dataM3/
+
+# ── Module-1: generated reports (re-created on each run) ──────────────
+output/*.pdf
+output/*.xlsx
+
+# ── NLTK data (downloaded at runtime) ─────────────────────────────────
+nltk_data/
