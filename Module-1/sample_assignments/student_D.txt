@@ -1,0 +1,22 @@
+Name: Sneha Gupta
+Roll No: 2024CS130
+Subject: Database Management Systems
+Date: 15/03/2025
+
+Assignment: Introduction to Database Systems
+
+A database is an organized collection of structured information stored electronically in a computer system. Database management systems provide the tools necessary to create, manage, and query databases efficiently. The most widely used database model is the relational model, proposed by Edgar F. Codd in 1970.
+
+Relational databases organize data into tables consisting of rows and columns. Each table represents an entity, and relationships between entities are established through foreign keys. SQL, or Structured Query Language, is the standard language for interacting with relational databases. It supports operations like SELECT for querying, INSERT for adding data, UPDATE for modifications, and DELETE for removal.
+
+Normalization is a critical process in database design that reduces data redundancy and improves data integrity. The process involves organizing tables according to normal forms. First Normal Form eliminates repeating groups, Second Normal Form removes partial dependencies, and Third Normal Form addresses transitive dependencies.
+
+Transaction management ensures data consistency in multi-user environments. The ACID properties — Atomicity, Consistency, Isolation, and Durability — guarantee that database transactions are processed reliably. Concurrency control mechanisms like locking and timestamp ordering prevent conflicts when multiple transactions access the same data simultaneously.
+
+Indexing is a technique used to speed up data retrieval operations. B-tree and hash indexes are commonly used structures. While indexes improve read performance significantly, they can slow down write operations due to the overhead of maintaining index structures.
+
+NoSQL databases have emerged as alternatives to traditional relational databases for handling large-scale, unstructured data. Document stores like MongoDB, key-value stores like Redis, column-family stores like Cassandra, and graph databases like Neo4j each address specific use cases where relational databases may not be optimal.
+
+In the modern era, cloud-based database services have gained popularity. Platforms like Amazon RDS, Google Cloud SQL, and Azure SQL Database offer managed database solutions that handle infrastructure maintenance, scaling, and backup automatically.
+
+Database security is paramount for protecting sensitive information. Access control mechanisms, encryption at rest and in transit, and regular auditing help maintain data confidentiality and integrity. Compliance with regulations like GDPR and HIPAA adds additional requirements for data handling.

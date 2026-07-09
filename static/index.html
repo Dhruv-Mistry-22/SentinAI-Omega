@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SentinAI Omega</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="/static/script.js" defer></script>
+</head>
+<body>
+    <!-- 3D Grid Tunnel Background -->
+    <div class="bg-fx">
+        <div class="grid-tunnel">
+            <div class="grid-wall floor"></div>
+            <div class="grid-wall ceiling"></div>
+            <div class="grid-wall left-wall"></div>
+            <div class="grid-wall right-wall"></div>
+        </div>
+        <div class="orb orb-red"></div>
+        <div class="orb orb-green"></div>
+    </div>
+
+    <div class="hud-container">
+        <!-- Decorative HUD Elements -->
+        <div class="hud-corner top-left"></div>
+        <div class="hud-corner top-right"></div>
+        <div class="hud-corner bottom-left"></div>
+        <div class="hud-corner bottom-right"></div>
+        <div class="hud-scanline"></div>
+
+        <!-- Floating HUD Navigation -->
+        <header class="hud-header">
+            <a href="/" class="logo" style="text-decoration: none; color: inherit;">
+                <svg class="brand-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 50 C30 20 70 20 90 50 C70 80 30 80 10 50 Z" fill="none" stroke="url(#logo-grad)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="50" cy="50" r="16" fill="none" stroke="var(--accent-green)" stroke-width="8"/>
+                    <circle cx="50" cy="50" r="6" fill="var(--accent-red)"/>
+                    <defs>
+                        <linearGradient id="logo-grad" x1="0" y1="0" x2="100" y2="100">
+                            <stop offset="0%" stop-color="#FF0055" />
+                            <stop offset="100%" stop-color="#00FF7F" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <span class="logo-text">SentinAI</span>
+            </a>
+            
+            <nav class="hud-nav">
+                <button class="nav-item active" data-target="module1">
+                    <svg xmlns="http://www.w3.org/O/svg/2000" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    DOC SCAN
+                </button>
+                <div class="nav-separator"></div>
+                <button class="nav-item" data-target="module2">
+                    <svg xmlns="http://www.w3.org/O/svg/2000" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                    VISION AI
+                </button>
+            </nav>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="hud-main">
+            
+            <!-- Module 1: Document Analysis -->
+            <section id="module1" class="module-view active-view">
+                <header class="view-header">
+                    <h2>Document Plagiarism & AI Detection</h2>
+                    <p>Upload at least two documents (.txt, .pdf, .docx) to analyze similarity and AI writing characteristics.</p>
+                </header>
+
+                <div class="upload-zone" id="doc-upload-zone">
+                    <canvas class="zone-canvas" id="doc-canvas"></canvas>
+                    <div class="zone-content">
+                        <input type="file" id="doc-input" multiple accept=".txt,.pdf,.docx" hidden>
+                        <div class="upload-icon neural-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                        </div>
+                        <p class="zone-title">INITIALIZE DOCUMENT UPLOAD</p>
+                        <span>Drop files into the neural stream or <button class="btn-text" onclick="document.getElementById('doc-input').click()">browse</button></span>
+                        <ul class="file-list" id="doc-file-list"></ul>
+                        <button class="btn-primary mt-4 glow-btn" id="btn-analyze-docs" disabled>
+                            <span class="btn-text-inner">ENGAGE ANALYSIS</span>
+                            <div class="btn-glitch"></div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Loader -->
+                <div class="loader-container immersive-loader" id="doc-loader" style="display: none;">
+                    <div class="cyber-spinner">
+                        <div class="ring"></div>
+                        <div class="ring"></div>
+                        <div class="ring"></div>
+                        <div class="core"></div>
+                    </div>
+                    <p class="cyber-text typing-anim">Extracting semantic features & analyzing AI footprint...</p>
+                </div>
+
+                <!-- Results -->
+                <div class="results-container" id="doc-results" style="display: none;">
+                    <!-- Filled by JS -->
+                </div>
+            </section>
+
+            <!-- Module 2: Image Classifier -->
+            <section id="module2" class="module-view">
+                <header class="view-header">
+                    <h2>Smart Image Classifier</h2>
+                    <p>AI vs Real Detection Router (Shoe / Handbag / Watch). Upload an image to analyze.</p>
+                </header>
+
+                <div class="upload-zone" id="img-upload-zone">
+                    <canvas class="zone-canvas" id="img-canvas"></canvas>
+                    <div class="zone-content">
+                        <input type="file" id="img-input" accept="image/*" hidden>
+                        <div class="upload-icon neural-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                        </div>
+                        <p class="zone-title">INITIALIZE IMAGE SCAN</p>
+                        <span>Drop an image into the neural stream or <button class="btn-text" onclick="document.getElementById('img-input').click()">browse</button></span>
+                        
+                        <div class="image-preview immersive-preview" id="img-preview-container" style="display:none;">
+                            <img id="img-preview" src="" alt="Preview">
+                            <div class="preview-overlay"></div>
+                            <button class="btn-close" id="btn-remove-img">×</button>
+                        </div>
+
+                        <div class="category-select mt-4">
+                            <select id="img-category" class="glass-select cyber-select">
+                                <option value="">Auto-Detect Category (CLIP)</option>
+                                <option value="shoe">Force: Shoe</option>
+                                <option value="handbag">Force: Handbag</option>
+                                <option value="watch">Force: Watch</option>
+                            </select>
+                        </div>
+
+                        <button class="btn-primary mt-4 glow-btn" id="btn-classify-img" disabled>
+                            <span class="btn-text-inner">ENGAGE CLASSIFICATION</span>
+                            <div class="btn-glitch"></div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Loader -->
+                <div class="loader-container immersive-loader" id="img-loader" style="display: none;">
+                    <div class="cyber-spinner">
+                        <div class="ring"></div>
+                        <div class="ring"></div>
+                        <div class="ring"></div>
+                        <div class="core"></div>
+                    </div>
+                    <p class="cyber-text typing-anim">Routing to vision transformer & analyzing forensics...</p>
+                </div>
+
+                <!-- Results -->
+                <div class="results-container" id="img-results" style="display: none;">
+                    <!-- Filled by JS -->
+                </div>
+            </section>
+
+        </main>
+    </div>
+</body>
+</html>

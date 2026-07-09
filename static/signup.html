@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SentinAI - Sign Up / Log In</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/signup.css?v=5">
+</head>
+<body>
+    <!-- The Sick 3D Background -->
+    <div class="bg-fx">
+        <div class="grid-tunnel">
+            <div class="grid-wall floor"></div>
+            <div class="grid-wall ceiling"></div>
+            <div class="grid-wall left-wall"></div>
+            <div class="grid-wall right-wall"></div>
+        </div>
+        <div class="orb orb-red"></div>
+        <div class="orb orb-green"></div>
+    </div>
+
+    <!-- UI Layer -->
+    <div class="split-container">
+        
+        <!-- Left Panel: Auth Form -->
+        <div class="left-panel">
+            <div class="auth-wrapper">
+                <a href="/" class="brand">
+                    <svg class="brand-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 50 C30 20 70 20 90 50 C70 80 30 80 10 50 Z" fill="none" stroke="url(#logo-grad)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="50" cy="50" r="16" fill="none" stroke="var(--accent-secondary)" stroke-width="8"/>
+                        <circle cx="50" cy="50" r="6" fill="var(--accent-primary)"/>
+                        <defs>
+                            <linearGradient id="logo-grad" x1="0" y1="0" x2="100" y2="100">
+                                <stop offset="0%" stop-color="#FF0055" />
+                                <stop offset="100%" stop-color="#00FF7F" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <span>SentinAI</span>
+                </a>
+
+                <div class="glass-card">
+                    <!-- Auth Mode Tabs -->
+                    <div class="auth-tabs">
+                        <button class="auth-tab active" id="tab-signup" onclick="switchMode('signup')">Sign Up</button>
+                        <button class="auth-tab" id="tab-login" onclick="switchMode('login')">Log In</button>
+                        <div class="tab-indicator" id="tab-indicator"></div>
+                    </div>
+
+                    <div class="form-header">
+                        <h2 id="form-title">Sign Up</h2>
+                        <p id="form-subtitle">Create an account to get started.</p>
+                    </div>
+                    
+                    <form id="auth-form" class="cyber-form" onsubmit="handleAuth(event)">
+                        <div class="input-group">
+                            <input type="email" id="email" required placeholder=" ">
+                            <label for="email">Email</label>
+                            <div class="input-border"></div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <input type="password" id="password" required placeholder=" ">
+                            <label for="password">Password</label>
+                            <div class="input-border"></div>
+                        </div>
+                        
+                        <div class="input-group confirm-group" id="confirm-group">
+                            <input type="password" id="confirm-password" required placeholder=" ">
+                            <label for="confirm-password">Confirm Password</label>
+                            <div class="input-border"></div>
+                        </div>
+
+                        <button type="submit" class="btn-auth">
+                            <span class="btn-text">Sign Up</span>
+                            <div class="btn-glitch-layer"></div>
+                        </button>
+                    </form>
+
+                    <div class="form-footer">
+                        <p id="auth-footer-text">Already have an account? <a href="#" onclick="switchMode('login'); return false;">Log in</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel: Neural Network Visualization -->
+        <div class="right-panel">
+            <canvas id="neural-canvas"></canvas>
+            <div class="neural-overlay">
+                <div class="neural-status">
+                    <div class="status-ring">
+                        <svg viewBox="0 0 120 120">
+                            <circle cx="60" cy="60" r="54" class="ring-track"/>
+                            <circle cx="60" cy="60" r="54" class="ring-progress" id="progress-ring"/>
+                        </svg>
+                        <div class="ring-center">
+                            <span class="ring-percent" id="ring-percent">0%</span>
+                        </div>
+                    </div>
+                    <div class="status-info">
+                        <span class="status-label" id="status-label">NEURAL SYNC</span>
+                        <span class="status-typing" id="status-typing"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // ==================== AUTH MODE TOGGLE ====================
+        let currentMode = 'signup';
+
+        function switchMode(mode) {
+            currentMode = mode;
+            const tabSignup = document.getElementById('tab-signup');
+            const tabLogin = document.getElementById('tab-login');
+            const indicator = document.getElementById('tab-indicator');
+            const title = document.getElementById('form-title');
+            const subtitle = document.getElementById('form-subtitle');
+            const confirmGroup = document.getElementById('confirm-group');
+            const btnText = document.querySelector('.btn-text');
+            const footerText = document.getElementById('auth-footer-text');
+
+            if (mode === 'login') {
+                tabLogin.classList.add('active');
+                tabSignup.classList.remove('active');
+                indicator.style.transform = 'translateX(100%)';
+                title.textContent = 'Welcome Back';
+                subtitle.textContent = 'Log in to your account.';
+                confirmGroup.classList.add('hidden');
+                confirmGroup.querySelector('input').required = false;
+                btnText.textContent = 'Log In';
+                footerText.innerHTML = 'Don\'t have an account? <a href="#" onclick="switchMode(\'signup\'); return false;">Sign up</a>';
+            } else {
+                tabSignup.classList.add('active');
+                tabLogin.classList.remove('active');
+                indicator.style.transform = 'translateX(0)';
+                title.textContent = 'Sign Up';
+                subtitle.textContent = 'Create an account to get started.';
+                confirmGroup.classList.remove('hidden');
+                confirmGroup.querySelector('input').required = true;
+                btnText.textContent = 'Sign Up';
+                footerText.innerHTML = 'Already have an account? <a href="#" onclick="switchMode(\'login\'); return false;">Log in</a>';
+            }
+            rebindFields();
+            updateProgress();
+        }
+
+        function handleAuth(e) {
+            e.preventDefault();
+            const btn = document.querySelector('.btn-auth');
+            btn.classList.add('loading');
+            btn.querySelector('.btn-text').innerText = currentMode === 'signup' ? 'CREATING ACCOUNT...' : 'LOGGING IN...';
+            
+            // Trigger the blast explosion
+            triggerBlast();
+            
+            setTimeout(() => { window.location.href = '/app'; }, 2000);
+        }
+
+        // Form progress (declared early so neural canvas can use it)
+        let formProgress = 0;
+
+        // ==================== NEURAL CANVAS ====================
+        const canvas = document.getElementById('neural-canvas');
+        const ctx = canvas.getContext('2d');
+        let burstActive = false, burstTime = 0;
+        let mouseX = -9999, mouseY = -9999;
+
+        // Spark particles for the blast effect
+        const sparks = [];
+        class Spark {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 8 + 4;
+                this.vx = Math.cos(angle) * speed;
+                this.vy = Math.sin(angle) * speed;
+                this.life = 1;
+                this.decay = Math.random() * 0.02 + 0.015;
+                this.radius = Math.random() * 2.5 + 1;
+                this.hue = Math.random() > 0.5 ? 348 : 150;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.vx *= 0.97;
+                this.vy *= 0.97;
+                this.life -= this.decay;
+            }
+            draw() {
+                if (this.life <= 0) return;
+                const alpha = this.life * 0.8;
+                const color = this.hue === 348 ? `rgba(255, 0, 85, ${alpha})` : `rgba(0, 255, 127, ${alpha})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius * this.life, 0, Math.PI * 2);
+                ctx.fillStyle = color;
+                ctx.fill();
+                // trail glow
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius * 3 * this.life, 0, Math.PI * 2);
+                ctx.fillStyle = this.hue === 348 ? `rgba(255, 0, 85, ${alpha * 0.15})` : `rgba(0, 255, 127, ${alpha * 0.15})`;
+                ctx.fill();
+            }
+        }
+
+        // Shockwave ring for blast
+        let shockwave = null;
+        class Shockwave {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.radius = 0;
+                this.maxRadius = Math.max(canvas.width, canvas.height) * 0.6;
+                this.life = 1;
+            }
+            update() {
+                this.radius += 12;
+                this.life = Math.max(0, 1 - this.radius / this.maxRadius);
+            }
+            draw() {
+                if (this.life <= 0) return;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.strokeStyle = `rgba(255, 255, 255, ${this.life * 0.4})`;
+                ctx.lineWidth = 2 + this.life * 3;
+                ctx.stroke();
+                // inner colored ring
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius * 0.9, 0, Math.PI * 2);
+                ctx.strokeStyle = `rgba(255, 0, 85, ${this.life * 0.25})`;
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+            }
+        }
+
+        function resize() {
+            canvas.width = canvas.parentElement.offsetWidth;
+            canvas.height = canvas.parentElement.offsetHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+        
+        canvas.parentElement.addEventListener('mousemove', (e) => {
+            const rect = canvas.parentElement.getBoundingClientRect();
+            mouseX = e.clientX - rect.left;
+            mouseY = e.clientY - rect.top;
+        });
+        canvas.parentElement.addEventListener('mouseleave', () => {
+            mouseX = -9999;
+            mouseY = -9999;
+        });
+
+        // Neural nodes
+        class NeuralNode {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.8;
+                this.vy = (Math.random() - 0.5) * 0.8;
+                this.radius = Math.random() * 3 + 1.5;
+                this.baseRadius = this.radius;
+                this.pulse = Math.random() * Math.PI * 2;
+                this.hue = Math.random() > 0.5 ? 348 : 150; // Red or Green
+                // Store home position for convergence
+                this.homeX = this.x;
+                this.homeY = this.y;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.pulse += 0.03;
+                this.radius = this.baseRadius + Math.sin(this.pulse) * 0.8;
+
+                const cx = canvas.width / 2;
+                const cy = canvas.height / 2;
+
+                // ===== MOUSE REPULSION (nodes flee from cursor) =====
+                const dx = this.x - mouseX;
+                const dy = this.y - mouseY;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                const repelRadius = 180;
+                if (dist < repelRadius && dist > 0) {
+                    const force = (1 - dist / repelRadius) * 0.6;
+                    this.vx += (dx / dist) * force;
+                    this.vy += (dy / dist) * force;
+                }
+
+                // ===== PROGRESS CONVERGENCE (pull toward center) =====
+                // Strength scales with formProgress: gentle at low %, strong at 100%
+                if (!burstActive && formProgress > 0) {
+                    const toCenterX = cx - this.x;
+                    const toCenterY = cy - this.y;
+                    const toCenterDist = Math.sqrt(toCenterX * toCenterX + toCenterY * toCenterY);
+                    
+                    // Convergence strength ramps up exponentially with progress
+                    // At 33% (~1 field): very subtle drift
+                    // At 50%: noticeable pull  
+                    // At 100%: strong cluster toward center
+                    const convergePower = Math.pow(formProgress, 2) * 0.08;
+                    
+                    // Target radius shrinks as progress increases
+                    // At 0%: nodes are free (full canvas)
+                    // At 50%: they stay within ~60% of half-canvas
+                    // At 100%: they cluster within ~15% of half-canvas
+                    const maxSpread = Math.min(canvas.width, canvas.height) * 0.45;
+                    const targetRadius = maxSpread * (1 - formProgress * 0.85);
+                    
+                    if (toCenterDist > targetRadius) {
+                        this.vx += (toCenterX / toCenterDist) * convergePower;
+                        this.vy += (toCenterY / toCenterDist) * convergePower;
+                    } else {
+                        // Even inside target radius, apply gentle inward pull
+                        this.vx += (toCenterX / (toCenterDist + 1)) * convergePower * 0.3;
+                        this.vy += (toCenterY / (toCenterDist + 1)) * convergePower * 0.3;
+                    }
+                }
+
+                // ===== BLAST EFFECT (explosive outward burst on submit) =====
+                if (burstActive) {
+                    const bx = this.x - cx;
+                    const by = this.y - cy;
+                    const bDist = Math.sqrt(bx * bx + by * by);
+                    if (bDist > 0) {
+                        // Strong outward force that decays over burst time
+                        const blastForce = Math.max(0, 4 - burstTime * 0.04);
+                        this.vx += (bx / bDist) * blastForce;
+                        this.vy += (by / bDist) * blastForce;
+                    } else {
+                        // If exactly at center, push in random direction
+                        const angle = Math.random() * Math.PI * 2;
+                        this.vx += Math.cos(angle) * 4;
+                        this.vy += Math.sin(angle) * 4;
+                    }
+                    // Increase radius during blast for dramatic effect
+                    this.radius = this.baseRadius + burstTime * 0.05;
+                }
+
+                // Damping
+                this.vx *= 0.98;
+                this.vy *= 0.98;
+
+                // Wrap around
+                if (this.x < -20) this.x = canvas.width + 20;
+                if (this.x > canvas.width + 20) this.x = -20;
+                if (this.y < -20) this.y = canvas.height + 20;
+                if (this.y > canvas.height + 20) this.y = -20;
+            }
+            draw() {
+                const alpha = 0.6 + Math.sin(this.pulse) * 0.3;
+                const color = this.hue === 348 ? `rgba(255, 0, 85, ${alpha})` : `rgba(0, 255, 127, ${alpha})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = color;
+                ctx.fill();
+
+                // Glow (bigger when converged for more visual punch)
+                const glowMult = 3 + formProgress * 2;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius * glowMult, 0, Math.PI * 2);
+                const glowColor = this.hue === 348 ? `rgba(255, 0, 85, ${alpha * 0.15})` : `rgba(0, 255, 127, ${alpha * 0.15})`;
+                ctx.fillStyle = glowColor;
+                ctx.fill();
+            }
+        }
+
+        const nodes = [];
+        const nodeCount = 60;
+        for (let i = 0; i < nodeCount; i++) {
+            nodes.push(new NeuralNode());
+        }
+
+        function drawConnections() {
+            // Connection distance increases as nodes converge
+            const baseDist = 150;
+            const connectDist = baseDist + formProgress * 80;
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const dx = nodes[i].x - nodes[j].x;
+                    const dy = nodes[i].y - nodes[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < connectDist) {
+                        const alpha = (1 - dist / connectDist) * (0.3 + formProgress * 0.3);
+                        ctx.beginPath();
+                        ctx.moveTo(nodes[i].x, nodes[i].y);
+                        ctx.lineTo(nodes[j].x, nodes[j].y);
+                        ctx.strokeStyle = `rgba(255, 255, 255, ${alpha})`;
+                        ctx.lineWidth = 0.6 + formProgress * 0.4;
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        let orbAngle = 0;
+        let orbAngle2 = Math.PI;
+
+        function drawOrbitalRing() {
+            const cx = canvas.width / 2;
+            const cy = canvas.height / 2;
+            const rx = 140;
+            const ry = 50;
+
+            orbAngle += 0.015;
+
+            // Draw ring path
+            ctx.beginPath();
+            ctx.ellipse(cx, cy, rx, ry, 0.3, 0, Math.PI * 2);
+            ctx.strokeStyle = 'rgba(255, 0, 85, 0.12)';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+
+            // Orbiting dot
+            const dotX = cx + Math.cos(orbAngle) * rx;
+            const dotY = cy + Math.sin(orbAngle) * ry;
+            ctx.beginPath();
+            ctx.arc(dotX, dotY, 4, 0, Math.PI * 2);
+            ctx.fillStyle = '#FF0055';
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(dotX, dotY, 12, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(255, 0, 85, 0.2)';
+            ctx.fill();
+        }
+
+        function drawSecondRing() {
+            const cx = canvas.width / 2;
+            const cy = canvas.height / 2;
+            const rx = 100;
+            const ry = 70;
+
+            orbAngle2 += 0.02;
+
+            ctx.beginPath();
+            ctx.ellipse(cx, cy, rx, ry, -0.5, 0, Math.PI * 2);
+            ctx.strokeStyle = 'rgba(0, 255, 127, 0.1)';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+
+            const dotX = cx + Math.cos(orbAngle2) * rx;
+            const dotY = cy + Math.sin(orbAngle2) * ry;
+            ctx.beginPath();
+            ctx.arc(dotX, dotY, 3, 0, Math.PI * 2);
+            ctx.fillStyle = '#00FF7F';
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(dotX, dotY, 10, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(0, 255, 127, 0.15)';
+            ctx.fill();
+        }
+
+        function drawCore() {
+            const cx = canvas.width / 2;
+            const cy = canvas.height / 2;
+            const pulse = Math.sin(Date.now() * 0.002) * 0.3 + 0.7;
+
+            // Core glow
+            const gradient = ctx.createRadialGradient(cx, cy, 0, cx, cy, 40);
+            gradient.addColorStop(0, `rgba(255, 0, 85, ${0.3 * pulse})`);
+            gradient.addColorStop(0.5, `rgba(0, 255, 127, ${0.1 * pulse})`);
+            gradient.addColorStop(1, 'transparent');
+            ctx.beginPath();
+            ctx.arc(cx, cy, 40, 0, Math.PI * 2);
+            ctx.fillStyle = gradient;
+            ctx.fill();
+
+            // Core dot
+            ctx.beginPath();
+            ctx.arc(cx, cy, 5, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255, 255, 255, ${0.5 + pulse * 0.5})`;
+            ctx.fill();
+        }
+
+        function triggerBlast() {
+            burstActive = true;
+            burstTime = 0;
+            const cx = canvas.width / 2;
+            const cy = canvas.height / 2;
+            // Spawn spark particles from center
+            for (let i = 0; i < 120; i++) {
+                sparks.push(new Spark(cx + (Math.random() - 0.5) * 40, cy + (Math.random() - 0.5) * 40));
+            }
+            // Create shockwave
+            shockwave = new Shockwave(cx, cy);
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            drawConnections();
+            drawOrbitalRing();
+            drawSecondRing();
+            drawCore();
+            nodes.forEach(n => { n.update(); n.draw(); });
+
+            // Update and draw sparks
+            for (let i = sparks.length - 1; i >= 0; i--) {
+                sparks[i].update();
+                sparks[i].draw();
+                if (sparks[i].life <= 0) sparks.splice(i, 1);
+            }
+
+            // Update and draw shockwave
+            if (shockwave && shockwave.life > 0) {
+                shockwave.update();
+                shockwave.draw();
+                if (shockwave.life <= 0) shockwave = null;
+            }
+
+            // Handle burst
+            if (burstActive) {
+                burstTime++;
+                // Flash the core brighter during blast
+                if (burstTime < 10) {
+                    const flashAlpha = (1 - burstTime / 10) * 0.6;
+                    const cx = canvas.width / 2;
+                    const cy = canvas.height / 2;
+                    const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, 200);
+                    grad.addColorStop(0, `rgba(255, 255, 255, ${flashAlpha})`);
+                    grad.addColorStop(0.3, `rgba(255, 0, 85, ${flashAlpha * 0.5})`);
+                    grad.addColorStop(1, 'transparent');
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, 200, 0, Math.PI * 2);
+                    ctx.fillStyle = grad;
+                    ctx.fill();
+                }
+                if (burstTime > 80) { burstActive = false; }
+            }
+
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // ==================== PROGRESS RING ====================
+        let fields = document.querySelectorAll('.cyber-form .input-group:not(.hidden) input');
+        const progressRing = document.getElementById('progress-ring');
+        const ringPercent = document.getElementById('ring-percent');
+        const statusLabel = document.getElementById('status-label');
+
+        const circumference = 2 * Math.PI * 54;
+        if (progressRing) {
+            progressRing.style.strokeDasharray = circumference;
+            progressRing.style.strokeDashoffset = circumference;
+        }
+
+        // formProgress is declared above the neural canvas section
+
+        function updateProgress() {
+            // Only count visible fields
+            const visibleFields = document.querySelectorAll('.cyber-form .input-group:not(.hidden) input');
+            let filled = 0;
+            visibleFields.forEach(f => { if (f.value.trim().length > 0) filled++; });
+            formProgress = visibleFields.length > 0 ? filled / visibleFields.length : 0;
+            
+            const offset = circumference - (formProgress * circumference);
+            if (progressRing) progressRing.style.strokeDashoffset = offset;
+            if (ringPercent) ringPercent.textContent = Math.round(formProgress * 100) + '%';
+            
+            const signupLabels = ['NEURAL SYNC', 'IDENTITY LAYER', 'ENCRYPTING...', 'READY'];
+            const loginLabels = ['NEURAL SYNC', 'IDENTITY LAYER', 'READY'];
+            const labels = currentMode === 'signup' ? signupLabels : loginLabels;
+            if (statusLabel) statusLabel.textContent = labels[filled] || labels[0];
+        }
+
+        function rebindFields() {
+            fields = document.querySelectorAll('.cyber-form .input-group:not(.hidden) input');
+            fields.forEach(f => f.addEventListener('input', updateProgress));
+        }
+
+        fields.forEach(f => f.addEventListener('input', updateProgress));
+
+        // ==================== TYPING ANIMATION ====================
+        const phrases = [
+            'Initializing neural pathways...',
+            'Calibrating detection engines...',
+            'Securing identity matrix...',
+            'Mapping forensic algorithms...',
+            'Deploying AI defense grid...'
+        ];
+        let phraseIdx = 0, charIdx = 0, isDeleting = false, typeDelay = 80;
+        const typingEl = document.getElementById('status-typing');
+
+        function typeLoop() {
+            const current = phrases[phraseIdx];
+            if (!isDeleting) {
+                typingEl.textContent = current.substring(0, charIdx + 1);
+                charIdx++;
+                if (charIdx === current.length) {
+                    isDeleting = true;
+                    typeDelay = 2000; // pause at end
+                }
+            } else {
+                typingEl.textContent = current.substring(0, charIdx - 1);
+                charIdx--;
+                typeDelay = 30;
+                if (charIdx === 0) {
+                    isDeleting = false;
+                    phraseIdx = (phraseIdx + 1) % phrases.length;
+                    typeDelay = 500;
+                }
+            }
+            setTimeout(typeLoop, isDeleting && charIdx === current.length ? 2000 : typeDelay);
+        }
+        typeLoop();
+    </script>
+</body>
+</html>
